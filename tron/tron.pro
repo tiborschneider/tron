@@ -12,9 +12,15 @@ TARGET = tron
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
-        mainwindow.cpp
+SOURCES += main.cpp \
+    tron.cpp \
+    map.cpp \
+    racer.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += \
+    tron.h \
+    map.h \
+    definitions.h \
+    racer.h
 
-FORMS    += mainwindow.ui
+FORMS    +=
