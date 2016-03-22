@@ -15,12 +15,14 @@ TEMPLATE = app
 SOURCES += main.cpp \
     tron.cpp \
     map.cpp \
-    racer.cpp
+    racer.cpp \
+    track.cpp
 
 HEADERS  += \
     tron.h \
     map.h \
     definitions.h \
-    racer.h
+    racer.h \
+    track.h
 
 FORMS    +=

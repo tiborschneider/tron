@@ -1,4 +1,5 @@
 #include "racer.h"
+#include "track.h"
 #include <QBrush>
 #include <iostream>
 
@@ -11,6 +12,7 @@ Racer::Racer(Player aPlayer)
         ax = 250;
         ay = 220;
         direction = down;
+        currentTrack = new Track(ax, ay);
         this->setBrush(QBrush(Qt::blue)); //set Color
         this->setRect(0, 0, PWIDTH, PHEIGHT);
         this->setTransformOriginPoint(0, 0);
@@ -22,22 +24,14 @@ Racer::Racer(Player aPlayer)
         ax = 250;
         ay = 280;
         direction = up;
+        currentTrack = new Track(ax, ay);
         this->setBrush(QBrush(Qt::red)); //set Color
         this->setRect(0, 0, PWIDTH, PHEIGHT);
         this->setPos(ax, ay);
     }
-
-    //setup Interrupt
-    timer = new QTimer();
-    connect(timer, SIGNAL(timeout()), this, SLOT(move()));
 }
 
-void Racer::start()
-{
-    timer->start(20);
-}
-
-unsigned int Racer::getX() const
+int Racer::getX() const
 {
     switch (direction)
     {
@@ -51,12 +45,12 @@ unsigned int Racer::getX() const
         return x();
         break;
     default:
-        return x() + PHEIGHT;
+        return x();
         break;
     }
 }
 
-unsigned int Racer::getY() const
+int Racer::getY() const
 {
     switch (direction)
     {
@@ -64,7 +58,7 @@ unsigned int Racer::getY() const
         return y();
         break;
     case down:
-        return y() + PHEIGHT;
+        return y();
         break;
     case left:
         return y() - PDELTA;
@@ -73,6 +67,11 @@ unsigned int Racer::getY() const
         return y() + PDELTA;
         break;
     }
+}
+
+Track* Racer::getCurrentTrack() const
+{
+    return currentTrack;
 }
 
 void Racer::rotateReverse()
