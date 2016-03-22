@@ -2,6 +2,7 @@
 #include "map.h"
 #include "racer.h"
 #include <QKeyEvent>
+#include <iostream>
 
 Tron::Tron()
 {
@@ -38,6 +39,10 @@ void Tron::start()
 {
     racerBlue->start();
     racerRed->start();
+    //racerRed->move();
+    std::cout << "(" << racerRed->x() << ", " << racerRed->y() << "), (" << racerBlue->x() << ", " << racerBlue->y() << ")" << std::endl;
+    //racerRed->rotateClock();
+    std::cout << "(" << racerRed->x() << ", " << racerRed->y() << "), (" << racerBlue->x() << ", " << racerBlue->y() << ")" << std::endl;
 }
 
 void Tron::keyPressEvent(QKeyEvent *event)

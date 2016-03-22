@@ -5,24 +5,26 @@
 Racer::Racer(Player aPlayer)
     :player(aPlayer)
 {
+    int ax, ay;
     if (player == blue)
     {
-        ax = WIDTH / 2 - 20;
-        ay = 50;
+        ax = 250;
+        ay = 220;
         direction = down;
         this->setBrush(QBrush(Qt::blue)); //set Color
-        this->setRect(getXPos(), ay, PWIDTH, PHEIGHT);
-        this->setTransformOriginPoint(ax, ay);
-        this->setRotation(180);
+        this->setRect(0, 0, PWIDTH, PHEIGHT);
+        this->setTransformOriginPoint(0, 0);
+        this->setRotation(+180);
+        this->setPos(ax + PWIDTH, ay);
     }
     else
     {
-        ax = WIDTH / 2 + 20;
-        ay = HEIGHT - 50;
+        ax = 250;
+        ay = 280;
         direction = up;
         this->setBrush(QBrush(Qt::red)); //set Color
-        //set Rectangle
-        this->setRect(getXPos(), ay, PWIDTH, PHEIGHT);
+        this->setRect(0, 0, PWIDTH, PHEIGHT);
+        this->setPos(ax, ay);
     }
 
     //setup Interrupt
@@ -32,39 +34,51 @@ Racer::Racer(Player aPlayer)
 
 void Racer::start()
 {
-    timer->start(50);
+    timer->start(20);
 }
 
-unsigned int Racer::getXPos() const
+unsigned int Racer::getX() const
 {
-    return ax - PDELTA;
-}
-
-void Racer::rotateClock()
-{
-    this->setTransformOriginPoint(ax, ay);
-    this->setRotation(rotation()-90);
     switch (direction)
     {
-    case left:
-        direction = up;
+    case up:
+        return x() + PDELTA;
         break;
     case down:
-        direction = left;
+        return x() - PDELTA;
         break;
-    case right:
-        direction = down;
+    case left:
+        return x();
         break;
+    default:
+        return x() + PHEIGHT;
+        break;
+    }
+}
+
+unsigned int Racer::getY() const
+{
+    switch (direction)
+    {
     case up:
-        direction = right;
+        return y();
+        break;
+    case down:
+        return y() + PHEIGHT;
+        break;
+    case left:
+        return y() - PDELTA;
+        break;
+    default:
+        return y() + PDELTA;
         break;
     }
 }
 
 void Racer::rotateReverse()
 {
-    this->setTransformOriginPoint(ax, ay);
-    this->setRotation(rotation()+90);
+    this->setTransformOriginPoint(PDELTA, 0);
+    this->setRotation(rotation()-90);
     switch (direction)
     {
     case left:
@@ -82,26 +96,42 @@ void Racer::rotateReverse()
     }
 }
 
+void Racer::rotateClock()
+{
+    this->setTransformOriginPoint(PDELTA, 0);
+    this->setRotation(rotation()+90);
+    switch (direction)
+    {
+    case left:
+        direction = up;
+        break;
+    case down:
+        direction = left;
+        break;
+    case right:
+        direction = down;
+        break;
+    case up:
+        direction = right;
+        break;
+    }
+}
+
 void Racer::move()
 {
-    std::cout << "move()" << std::endl;
     switch (direction)
     {
     case right:
         this->setPos(x()+1, y());
-        this->x++;
         break;
     case up:
         this->setPos(x(), y()-1);
-        this->y--;
         break;
     case left:
         this->setPos(x()-1, y());
-        this->x--;
         break;
     case down:
         this->setPos(x(), y()+1);
-        this->y++;
         break;
     }
 }

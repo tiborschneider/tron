@@ -13,6 +13,8 @@ public:
     Racer(Player aPlayer);
     void start();
     inline unsigned int getXPos() const;
+    inline unsigned int getX() const;
+    inline unsigned int getY() const;
     void rotateClock();
     void rotateReverse();
 
@@ -21,8 +23,6 @@ public slots:
 
 private:
     Player player;
-    unsigned int ax;
-    unsigned int ay;
     Direction direction;
     QTimer* timer;
     

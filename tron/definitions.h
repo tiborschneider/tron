@@ -8,7 +8,7 @@ enum Direction{right, up, left, down};
 #define HEIGHT 500
 #define PWIDTH 7
 #define PDELTA 3
-#define PHEIGHT 30
+#define PHEIGHT 14
 
 
 #endif // DEFINITIONS_H
