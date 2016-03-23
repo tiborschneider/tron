@@ -2,7 +2,8 @@
 
 Track::Track(int ax, int ay)
 {
-    setLine(ax, ay, ax, ay);
+    this->setLine(ax, ay, ax, ay);
+    this->setZValue(-1);
 }
 
 int Track::getStartX() const
@@ -12,5 +13,5 @@ int Track::getStartX() const
 
 int Track::getStartY() const
 {
-    return this->line().x2();
+    return this->line().y1();
 }

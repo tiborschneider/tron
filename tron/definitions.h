@@ -6,11 +6,11 @@ enum Direction{right, up, left, down};
 
 #define WIDTH 500
 #define HEIGHT 500
-#define PWIDTH 7
-#define PDELTA 3
+#define PWIDTH 6
 #define PHEIGHT 14
 #define BORDER 1
-#define ARRAYSIZE 100
+#define ARRAYSIZE 1024
+#define PDELTA 3
 
 
 #endif // DEFINITIONS_H

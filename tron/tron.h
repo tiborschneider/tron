@@ -6,6 +6,7 @@
 #include <QGraphicsView>
 #include <QObject>
 #include <QTimer>
+#include "definitions.h"
 
 class Map;
 class Racer;
@@ -18,6 +19,7 @@ public:
     Tron();
     ~Tron();
     void start();
+    void gameOver(Player winner);
     void keyPressEvent(QKeyEvent* event);
 
 public slots:

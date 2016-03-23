@@ -7,66 +7,35 @@ Racer::Racer(Player aPlayer)
     :player(aPlayer)
 {
     int ax, ay;
+    ax = 250;
     if (player == blue)
     {
-        ax = 250;
-        ay = 220;
-        direction = down;
-        currentTrack = new Track(ax, ay);
+        ay = 120;
+        direction = up;
         this->setBrush(QBrush(Qt::blue)); //set Color
-        this->setRect(0, 0, PWIDTH, PHEIGHT);
-        this->setTransformOriginPoint(0, 0);
-        this->setRotation(+180);
-        this->setPos(ax + PWIDTH, ay);
+        currentTrack = new Track(ax + PDELTA, ay);
+        this->rotateClock(currentTrack);
+        this->rotateClock(currentTrack);
     }
     else
     {
-        ax = 250;
-        ay = 280;
+        ay = 380;
         direction = up;
-        currentTrack = new Track(ax, ay);
         this->setBrush(QBrush(Qt::red)); //set Color
-        this->setRect(0, 0, PWIDTH, PHEIGHT);
-        this->setPos(ax, ay);
+        currentTrack = new Track(ax + PDELTA, ay);
     }
+    this->setRect(0, 0, PWIDTH, PHEIGHT);
+    this->setPos(ax, ay);
 }
 
 int Racer::getX() const
 {
-    switch (direction)
-    {
-    case up:
-        return x() + PDELTA;
-        break;
-    case down:
-        return x() - PDELTA;
-        break;
-    case left:
-        return x();
-        break;
-    default:
-        return x();
-        break;
-    }
+    return x() + PDELTA;
 }
 
 int Racer::getY() const
 {
-    switch (direction)
-    {
-    case up:
-        return y();
-        break;
-    case down:
-        return y();
-        break;
-    case left:
-        return y() - PDELTA;
-        break;
-    default:
-        return y() + PDELTA;
-        break;
-    }
+    return y();
 }
 
 Track* Racer::getCurrentTrack() const
@@ -74,10 +43,11 @@ Track* Racer::getCurrentTrack() const
     return currentTrack;
 }
 
-void Racer::rotateReverse()
+void Racer::rotateReverse(Track *nextTrack)
 {
     this->setTransformOriginPoint(PDELTA, 0);
     this->setRotation(rotation()-90);
+    currentTrack = nextTrack;
     switch (direction)
     {
     case left:
@@ -95,10 +65,11 @@ void Racer::rotateReverse()
     }
 }
 
-void Racer::rotateClock()
+void Racer::rotateClock(Track *nextTrack)
 {
     this->setTransformOriginPoint(PDELTA, 0);
     this->setRotation(rotation()+90);
+    currentTrack = nextTrack;
     switch (direction)
     {
     case left:
@@ -133,4 +104,5 @@ void Racer::move()
         this->setPos(x(), y()+1);
         break;
     }
+    currentTrack->setLine(currentTrack->getStartX(), currentTrack->getStartY(), this->getX(), this->getY());
 }
